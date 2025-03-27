@@ -1,12 +1,6 @@
 # Use PostgreSQL 17 with Debian Bookworm as base
 FROM postgres:17-bookworm
 
-# Copy initialization scripts
-COPY init-scripts/ /docker-entrypoint-initdb.d/
-
-# Make sure the script is executable
-RUN chmod +x /docker-entrypoint-initdb.d/*.sh
-
 # Add any custom configurations or extensions if needed
 # For example:
 # COPY ./custom-postgresql.conf /etc/postgresql/postgresql.conf
