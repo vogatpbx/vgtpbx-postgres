@@ -12,11 +12,11 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       POSTGRES_DB: ${POSTGRES_DB:-vgtpbx}
       PGDATA: /var/lib/postgresql/data/pgdata
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-insecure12345}
+      SWITCH_DB_PASSWORD: ${DATABASE_PASSWORD:-insecure12345}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - vgtpbx-postgres-data:/var/lib/postgresql/data
       - type: bind
-        source: ./init-scripts
+        source: ${PWD}/init-scripts
         target: /docker-entrypoint-initdb.d
         read_only: true
     ports:
@@ -31,8 +31,8 @@ services:
       - vgtpbx-network
 
 volumes:
-  postgres_data:
-    name: vgtpbx-postgres-data 
+  vgtpbx-postgres-data:
+    name: vgtpbx-postgres-data
 
 networks:
   vgtpbx-network:

@@ -10,8 +10,11 @@ FROM postgres:17-bookworm
 #     your-package-here \
 #     && rm -rf /var/lib/apt/lists/*
 
-# Any additional initialization scripts can be added to docker-entrypoint-initdb.d/
-# COPY ./init-scripts/ /docker-entrypoint-initdb.d/
+# Copy initialization scripts
+COPY init-scripts/ /docker-entrypoint-initdb.d/
+
+# Make sure scripts are executable
+RUN chmod +x /docker-entrypoint-initdb.d/*.sh
 
 # The official image already sets up:
 # - VOLUME /var/lib/postgresql/data
