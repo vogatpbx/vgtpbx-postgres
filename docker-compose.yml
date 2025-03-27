@@ -15,10 +15,6 @@ services:
       SWITCH_DB_PASSWORD: ${DATABASE_PASSWORD:-insecure12345}
     volumes:
       - vgtpbx-postgres-data:/var/lib/postgresql/data
-      - type: bind
-        source: ${PWD}/init-scripts
-        target: /docker-entrypoint-initdb.d
-        read_only: true
     ports:
       - "5432:5432"
     healthcheck:
