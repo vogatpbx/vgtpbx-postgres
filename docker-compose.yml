@@ -25,6 +25,12 @@ services:
     networks:
       - vgtpbx-network
 
+    switch:
+     image: vgtpbx-switch:latest
+     container_name: vgtpbx-switch
+     networks:
+       - vgtpbx-network
+
   switch:
     image: vgtpbx-switch:latest
     container_name: vgtpbx-switch
@@ -33,7 +39,8 @@ services:
 
 volumes:
   postgres_data:
-    name: vgtpbx-postgres-data
+    name: vgtpbx-postgres-data 
 
 networks:
-  vgtpbx-network
+  vgtpbx-network:
+    driver: bridge
