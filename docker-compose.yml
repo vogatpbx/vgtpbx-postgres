@@ -25,18 +25,6 @@ services:
     networks:
       - vgtpbx-network
 
-    switch:
-     image: vgtpbx-switch:latest
-     container_name: vgtpbx-switch
-     networks:
-       - vgtpbx-network
-
-  switch:
-    image: vgtpbx-switch:latest
-    container_name: vgtpbx-switch
-    networks:
-      - vgtpbx-network
-
 volumes:
   postgres_data:
     name: vgtpbx-postgres-data 
