@@ -36,4 +36,5 @@ volumes:
 
 networks:
   vgtpbx-network:
+    name: vgtpbx-network
     driver: bridge
