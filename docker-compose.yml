@@ -12,8 +12,13 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       POSTGRES_DB: ${POSTGRES_DB:-vgtpbx}
       PGDATA: /var/lib/postgresql/data/pgdata
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-insecure12345}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - type: bind
+        source: ./init-scripts
+        target: /docker-entrypoint-initdb.d
+        read_only: true
     ports:
       - "5432:5432"
     healthcheck:
