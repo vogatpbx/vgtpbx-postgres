@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vgtpbx-postgres:latest
+    container_name: vgtpbx-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-vgtpbx}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - vgtpbx-network
+
+    switch:
+     image: vgtpbx-switch:latest
+     container_name: vgtpbx-switch
+     networks:
+       - vgtpbx-network
+
+  switch:
+    image: vgtpbx-switch:latest
+    container_name: vgtpbx-switch
+    networks:
+      - vgtpbx-network
+
+volumes:
+  postgres_data:
+    name: vgtpbx-postgres-data 
+
+networks:
+  vgtpbx-network
