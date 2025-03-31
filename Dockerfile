@@ -6,15 +6,15 @@ FROM postgres:17-bookworm
 # COPY ./custom-postgresql.conf /etc/postgresql/postgresql.conf
 
 # You can also install additional packages if required
-# RUN apt-get update && apt-get install -y \
-#     your-package-here \
-#     && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+     wget \
+     && rm -rf /var/lib/apt/lists/*
 
 # Copy initialization scripts
-COPY init-scripts/ /docker-entrypoint-initdb.d/
+#COPY init-scripts/ /docker-entrypoint-initdb.d/
 
 # Make sure scripts are executable
-RUN chmod +x /docker-entrypoint-initdb.d/*.sh
+#RUN chmod +x /docker-entrypoint-initdb.d/*.sh
 
 # The official image already sets up:
 # - VOLUME /var/lib/postgresql/data
